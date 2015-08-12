@@ -1,0 +1,311 @@
+function contains(arr, value, start, end) {
+			var i,			
+			start = start || 0,
+			end = end || arr.length;
+
+			for (i = start; i < end; i++) {
+				if (arr[i] === value) {
+					return true;
+				}
+			}			
+			return false;
+		}
+
+--------------------------------------------------------------------------------------------------------------------------------
+''.trimStart()
+String.prototype.trimStart= function() {
+	return this.replace(/^\s+/,"");
+}
+
+''.trimEnd()
+String.prototype.trimEnd= function() {
+	return this.replace(/\s+$/,"");
+}
+
+[].remove(arg, all)
+// Removes the first element found from left to right in the array
+// Second argument should be truthy to remove all elements
+
+Array.prototype.remove = function(arg, all){
+    for(var i = 0; i < this.length; i++){
+        if(this[i] === arg){
+            this.splice(i,1);
+
+            if(!all)
+                break;
+            else
+                i--;
+        }
+    }
+};
+
+[].removeAt(pos)
+// Removes the element at the position
+Array.prototype.removeAt = function(position){
+    this.splice(position,1);
+};
+
+[].clear()
+// Removes all elements of the array
+Array.prototype.clear = function(){
+    this.length = 0;
+};
+
+[].insertAt(arg, pos)
+// Inserts an element at a given position
+Array.prototype.insertAt = function(arg, position){
+    this.splice(position, 0, arg);
+};
+
+[].contains(arg)
+// Checks if the array contains the given element
+Array.prototype.contains = function(arg){
+    for(var i = 0; i < this.length; i++)
+        if(this[i] === arg)
+            return true;
+    return false;
+};
+
+
+[].occurs(arg)
+// Counts the occurrences of a given element in array
+Array.prototype.occurs = function(arg){
+    var counter = 0;
+
+    for(var i = 0; i< this.length; i++){
+        if(this[i] === arg)
+            counter++;
+    }
+
+    return counter;
+};
+-------------------------------------------------------------------------------------------------------------------------------
+
+function removeTags(text) {
+	var wordsBetweenTags='';
+	for (var j = 0; j < text.length; j++) {
+		var indexStart = text.indexOf('<');
+		var indexEnd = text.indexOf('>');
+		text = (text.replace(text.substring(indexStart, indexEnd + 1),''));// trii tagovete
+	}
+	return  text
+}
+
+function getTagName(text) {
+	var tagName='';
+	for (var i = 0; i < text.length; i++) {
+		var indexStart = text.indexOf('>');
+		var indexEnd = text.indexOf('<');
+		tagName = text.substring(indexStart, indexEnd + 1);   
+	}
+	return tagName;
+}
+
+function textBetweenTags(text) {
+	var textBetweenTags='';
+	for (var i = 0; i < text.length; i++) {
+		var indexStart = text.indexOf('>');
+		var indexEnd = text.indexOf('</');
+		textBetweenTags = text.substring(indexStart+1, indexEnd );
+	}
+	return textBetweenTags;
+}
+
+function convertWordUpcaseAndLowcase(text) {
+	text=text.split('');
+	var word='';
+	for (var i =0;i<text.length;i++) {
+		if (i%2===0) {
+			word+= text[i].toUpperCase();
+		}
+		else {
+			word += text[i];
+		}
+	}
+	return word;
+}
+
+function countStringOccuranceInText(text, pattern) { //Broi vsichki savpadenia na tyrsenia string bez znachenie sliato ili ne
+	text = text.toLowerCase();
+	var count = 0;
+	for (var i = 0; i < text.length; i++) {
+		text = text.replace(pattern, "*");
+		if (text[i] === '*') {
+			count++;
+		}
+	}
+	return count;
+}
+//------------------------------------------------------------------------
+var list = '';
+for (var i = 0; i != 26; ++i) list += String.fromCharCode(i + 65);
+//create charArray from english alphabet
+//=========================================================================================
+
+
+function isLetter(symbol) {
+	var asciiCode = symbol.charCodeAt(0);
+	if ((asciiCode > 64 && asciiCode < 91) || (asciiCode > 96 && asciiCode < 123)) {
+		return true;
+	}
+	return false;
+}
+
+function isDigit(symbol) {
+	var asciiCode = symbol.charCodeAt(0);
+	if (asciiCode > 47 && asciiCode < 58)  {
+		return true;
+	}
+	return false;
+}
+
+function returnDigitsFromString(string) {
+	function isDigit(string) {
+		var result=isFinite(string);
+		return result;
+	}
+	function keepOnlyDigitsinString(string) {
+		var number = '';
+		for (var i = 0; i < string.length; i += 1) {
+			if (isDigit(string[i])) {
+				number += parseInt(string[i], 10);
+			}
+		}
+		number = number.replace(' ', '');
+		return number;
+	}
+	return keepOnlyDigitsinString(string);
+}
+/=================================================================================
+//Matrix of strings
+function makeMatrixOfStrings(arrayOfStrings) {
+	var matrix = [];
+	arrayOfStrings.forEach(function(string) {
+		matrix.push(string.toLowerCase().split(''));
+	});
+	console.log(matrix);
+}
+
+//----------------------------------------------------------------------
+//Matrix of Numbers in format:  123
+                                456
+function createMatrix(string) {
+	var rowCol = string[0].split(' ').map(Number);
+	var row = rowCol[0];
+	var col = rowCol[1];
+	var matrix = [];
+	var counter = 1;
+	for (var i = 0; i < row; i+=1) {
+		matrix[i] = [];
+		for (var j = 0; j < col; j+=1) {
+			matrix[i][j] = counter++;
+		}
+	}
+	return matrix;
+}
+///////////////////////////////////////////////////////////////////////////
+vrashta true ili false ako edna dvoika ot charove se povtaria v string
+//-------------------------------------------------------------------------
+ function isRepeatedPairTwoChars(string) {
+        var numStr = '' + string;
+        var existingPairs = { };
+        for (var i = 1; i < numStr.length; i++) {
+            var pair = numStr.substr(i - 1, 2);
+            if (existingPairs[pair]) {
+                if (i - existingPairs[pair] >= 2) {
+                    return true;
+                }
+            } else {
+                existingPairs[pair] = i;
+            }
+        }
+        return false;
+    }
+    //--------------------------------------------------------------------
+
+
+
+
+//--------------MAX SUBARRAY SUM(FASTER)
+
+function Solve(params) {
+    var N = parseInt(params[0]);
+	var numbers = [];
+	for (var i = 1; i <= N; i++) {
+		numbers[i-1] = parseInt(params[i]);
+	}
+
+    function max(a, b) {
+        return (a > b) ? a : b;
+    }
+
+    function maxSubArraySum(numbers, size) {
+        var max_so_far = numbers[0],
+            curr_max = numbers[0];
+
+        for (var i = 1; i < size; i++) {
+            curr_max = max(numbers[i], (curr_max + numbers[i]));
+            max_so_far = max(max_so_far, curr_max);
+        }
+        return max_so_far;
+    }
+
+    return maxSubArraySum(numbers, N);
+ 
+}
+////////////////////////////////////////////////////////////////////////////
+//----------MAX SUBARRAY SUM -II WAY
+
+function Solve(params) {
+    var N = parseInt(params[0]);
+    var numbers = [];
+    for (var i = 1; i <= N; i++) {
+        numbers[i-1] = parseInt(params[i]);
+    }
+
+    function maxNum2(a, b) {
+        return (a > b) ? a : b;
+    }
+
+    function maxNum3(a, b, c) {
+        return maxNum2(maxNum2(a, b), c);
+    }
+
+    function maxInBetween(numbers, l, m, h) {
+        var sum = 0;
+        var leftSum = Number.NEGATIVE_INFINITY;
+
+        for (var i = m; i >= l; i--) {
+            sum += numbers[i];
+
+            if (sum > leftSum) {
+                leftSum = sum;
+            }
+        }
+        var sum1 = 0;
+        var rightSum = Number.NEGATIVE_INFINITY;
+
+        for (var i = m + 1; i <= h; i++) {
+            sum1 += numbers[i];
+
+            if (sum1 > rightSum) {
+                rightSum = sum1;
+            }
+        }
+        return leftSum + rightSum;
+    }
+
+    function maxSubArraySum(numbers, l, h) {
+        if (l == h) {
+            return numbers[l];
+        }
+
+        var m = ((l + h) / 2)|0;
+        return maxNum3(maxSubArraySum(numbers, l, m),
+            maxSubArraySum(numbers, m + 1, h),
+            maxInBetween(numbers, l, m, h));
+    }
+    return  maxSubArraySum(numbers, 0, N-1);
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
